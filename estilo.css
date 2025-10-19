@@ -1,0 +1,112 @@
+/* ====== ESTRUCTURA GENERAL ====== */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333333;
+  background-color: #F4F4F9;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  text-align: justify;
+}
+
+/* ====== CONTENEDOR PRINCIPAL ====== */
+#content {
+  max-width: 900px;
+  margin-left: 280px;
+  background: #FFFFFF;
+  padding: 3rem 4rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+/* ====== TOC (Tabla de contenidos) ====== */
+#TOC, .tocify {
+  position: fixed;
+  top: 40px;
+  left: 30px;
+  width: 300px !important;
+  background-color: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.5rem;
+  max-height: 85vh;
+  overflow-y: auto;
+  color: #007BFF;
+}
+
+#TOC ul {
+  list-style: none;
+  padding-left: 0.5rem;
+  margin: 0;
+}
+
+#TOC li {
+  margin: 6px 0;
+}
+
+#TOC a {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: #007BFF;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  background: none !important;
+}
+
+#TOC a:hover,
+#TOC .active {
+  background-color: #0056b3;
+  color: #FFFFFF;
+  text-shadow: 0 0 4px #0056b3;
+}
+
+/* ====== TITULOS ====== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  color: #212529;
+  margin-top: 1.6em;
+}
+
+h1 {
+  border-bottom: 2px solid #007BFF;
+  padding-bottom: 0.3em;
+}
+
+h2 {
+  border-left: 4px solid #007BFF;
+  padding-left: 0.5em;
+}
+
+/* ====== ENLACES ====== */
+a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #0056b3;
+}
+
+/* ====== C??DIGO ====== */
+pre, code {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #F4F4F9;
+  color: #212529;
+  border-radius: 6px;
+  padding: 0.3em 0.5em;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ====== CONTENEDORES FLUIDOS ====== */
+.container-fluid {
+  max-width: 1200px;
+  padding: 0 50px;
+}
