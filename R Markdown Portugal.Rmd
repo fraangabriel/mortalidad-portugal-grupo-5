@@ -1,0 +1,68 @@
+---
+title: "Análisis de la Mortalidad y Esperanza de Vida en Portugal (1940-2023)"
+author: "Francisco Pérez y Jackeline Perilla"
+date: "23 de octubre de 2025"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    collapsed: true
+    smooth_scroll: true
+    theme: cosmo
+    highlight: pygments
+    df_print: paged
+    code_folding: show
+    css: estilo.css
+    background-color: "#F5F8FF"
+---
+
+# 💡 Planteamiento del problema
+
+Entre 1940 y 2023, Portugal vivió transformaciones con base en la modernización sanitaria, los cambios sociales y económicos existentes y los efectos derivados de crisis sanitarias como la epidemia de VIH y la pandemia de COVID-19. El presente proyecto pretende estudiar la evolución de la mortalidad y de las tablas de vida en Portugal, centrándose en la identificación de tendencias en diferentes intervalos temporales y cohortes de edad. El análisis del cambio en la mortalidad y la expectativa de vida desde la perspectiva de la demografía llega a ser, en parte, contemporáneo a la estadística y a la computación. Desde 1940 a 2023, a partir de la tabla de mortalidad de Portugal, se pretende analizar las variaciones en la esperanza de vida y las tasas de mortalidad en función de las desventajas en salud y las crisis económicas y sanitarias, los cambios a lo largo de las etapas de la longevidad y la atención que se ha dado a las distintas edades.
+
+# ✨ Objetivos de la investigación
+
+## Objetivo general
+
+Analizar e investigar la evolución de la mortalidad y la esperanza de vida en Portugal desde 1940 hasta 2023, considerando los impactos de la economía y las crisis primarias en el sistema de salud, en particular la epidemia de VIH y la pandemia de COVID-19. Esto pone énfasis en la identificación de patrones y contrastes de períodos con el fin de dar cuenta de la distribución, las tendencias y la varianza de los indicadores demográficos a través de análisis exploratorios, estadísticos y visuales en Python y R.
+
+
+## Objetivos específicos
+
+1. Describir la evolución temporal de la esperanza de vida al nacer y por grupos de edad en Portugal.
+2. Profundizar la exploración a través de estadísticos obtenidos sobre datos filtrados.
+3. Comparar las diferentes perspectivas que han mostrado los estadísticos y extraer insights.
+
+
+# 🧾 Marco teórico
+
+## ⏳ Segmentación Temporal
+
+El periodo analizado (1940–2023) se organiza en cuatro niveles posibles de observación para facilitar el estudio de los cambios en la mortalidad a lo largo del tiempo y su relación con los contextos históricos y económicos:
+
+1. **Año a año:** permite un análisis continuo y detallado de las variaciones anuales en las tasas de mortalidad y esperanza de vida.
+
+2. **Años de referencia decenal:** considera el primer año de cada década (1940, 1950, 1960, …, 2020\) como punto de comparación representativo, facilitando la observación de tendencias de largo plazo.
+
+3. **Por décadas:** agrupa los datos en intervalos de diez años (1940–1949, 1950–1959, 1960–1969, etc.), permitiendo identificar ciclos demográficos amplios.
+
+4. **Por periodos de evolución económica:** integra la dimensión macroeconómica como factor explicativo de los cambios en la mortalidad, segmentando según fases históricas del crecimiento real per cápita y eventos económicos relevantes:
+
+   * 1940–1946: reconstrucción posguerra
+
+   * 1947–1972: expansión económica y transición demográfica
+
+   * 1973–1990: crisis del petróleo y ajuste estructural
+
+   * 1991–1998: apertura europea y modernización
+
+   * 1999–2007: integración al euro y estabilidad
+
+   * 2008–2014: crisis financiera global
+
+   * 2015–2019: recuperación económica
+
+   * 2020–2023: pandemia y reconfiguración demográfica
+
+Esta segmentación temporal permite combinar **análisis demográficos, económicos y sociales**, revelando cómo los contextos estructurales han influido en la dinámica de la mortalidad portuguesa.
