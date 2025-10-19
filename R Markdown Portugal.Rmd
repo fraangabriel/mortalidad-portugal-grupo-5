@@ -66,3 +66,127 @@ El periodo analizado (1940–2023) se organiza en cuatro niveles posibles de obs
    * 2020–2023: pandemia y reconfiguración demográfica
 
 Esta segmentación temporal permite combinar **análisis demográficos, económicos y sociales**, revelando cómo los contextos estructurales han influido en la dinámica de la mortalidad portuguesa.
+
+## 👨‍👩‍👧‍👦 Segmentación por Edad
+
+Para el análisis demográfico y estadístico de la mortalidad en Portugal (1940–2023), las edades (0 a 110 años) se consideran cuatro niveles de agrupación, con el fin de facilitar la comparación temporal y favorecer la analítica de las variables:
+
+1. **Datos brutos (0–110 años y más):** análisis detallado año por año que permite observar microvariaciones en las tasas de mortalidad y esperanza de vida.
+
+2. **Grupos censales estándar (intervalos de 5 años):** segmentación tradicional utilizada por el Instituto Nacional de Estadística de Portugal y otros censos internacionales (0–4, 5–9, 10–14, …, 105–110+).
+
+3. **Grupos censales principales:** clasificación demográfica macro empleada para comparaciones estructurales de población:
+
+   * 0–14 años
+
+   * 15–64 años
+
+   * 65 años y más
+
+4. **Etapas de la vida:** agrupación interpretativa basada en criterios biológicos y sociales que permite conectar la mortalidad con procesos vitales:
+
+   * Infancia (0–5)
+
+   * Niñez (6–11)
+
+   * Pubertad y adolescencia (12–19)
+
+   * Adultos jóvenes (20–39)
+
+   * Adultos intermedios (40–49)
+
+   * Adultos maduros (50–59)
+
+   * Viejos incipientes (60–69)
+
+   * Viejos intermedios (70–84)
+
+   * Viejos avanzados (85 y más)
+
+Este esquema multiescalar facilita un análisis flexible de la mortalidad, permitiendo observar desde distintos enfoques tanto **patrones microdemográficos**  **y biográficos** como **tendencias estructurales**.
+
+
+## 🧩 Diseño de Data Frames
+
+Basados en las dos dimensiones de segmentación:
+
+1\. **Enfoques de Segmentación por Edad (4)**
+
+1. **E₁** → Datos brutos (0–110)
+
+2. **E₂** → Grupos censales estándar (0–4, 5–9, …, 105–110)
+
+3. **E₃** → Grupos censales principales (0–14, 15–64, 65+)
+
+4. **E₄** → Etapas de la vida (Infancia, Niñez, …, Viejos avanzados)
+
+2\. **Enfoques de Segmentación Temporal (4)**
+
+1. **T₁** → Año a año
+
+2. **T₂** → Años de referencia decenal (1940, 1950, …, 2020\)
+
+3. **T₃** → Por décadas (1940–1949, 1950–1959, …)
+
+4. **T₄** → Por periodos de evolución económica
+
+## 🧮 Combinaciones Teóricas
+
+Cada cruce entre un enfoque de edad y un enfoque temporal genera un **data frame derivado** del data frame original (df).
+
+| Edad / Tiempo | T₁ Año a año (83 categorías) | T₂ Años decenales (9 categorías) | T₃ Por décadas (9 categorías) | T₄ Periodos económicos (8 categorías) |
+| ----- | :---: | :---: | :---: | :---: |
+| **E₁ Bruto (111 categorías)** | df1 | df2 | df3 | df4 |
+| **E₂ Censal (23 categorías)** | df5 | df6 | df7 | df8 |
+| **E₃ Principales (3 categorías)** | df9 | df10 | df11 | df12 |
+| **E₄ Etapas de vida (9 categorías)** | df13 | df14 | df15 | df16 |
+
+* **Total de data frames teóricos derivados:** 4 (enfoques de edad) × 4 (enfoques temporales) \= **16 data frames**  
+* **Los datos T₁, T₂, E₁, se utilizarán directamente** el valor que corresponda   
+* **Los datos T₃, T₄, E₂, E₃, E₄, se utilizarán como un promedio simple** de las categorías individuales que incluya cada ítem requerido
+
+## 📐 Variables de Data Frame
+
+**Year**: Año 	
+
+**Age**: edad en años de la población	
+
+**mx**: Tasa de mortalidad observada en la población para esa edad y año. Es la cantidad de muertes en un año por cada persona viva de esa edad.
+
+**qx**: Probabilidad de morir entre la edad x y x+1. Si tiene x años, es la probabilidad de que fallezca antes de cumplir x+1.
+
+**ax**: Tiempo promedio vivido por las personas que mueren en un año de edad específico.
+
+**lx**: Número de personas que sobreviven hasta una edad específica
+
+**dx**: Número de personas que mueren entre una edad y la siguiente
+
+**Lx**: Representa los "años de vida" totales vividos por la cohorte (lx) entre una edad y la siguiente
+
+**Tx**: Total de "años de vida" que le quedan por vivir a la cohorte a partir de una edad determinada.
+
+**ex**: Esperanza de Vida al Nacimiento, es el principal indicador de desarrollo y salud pública.
+
+# 📊 Análisis de resultados
+
+# 📚 Bibliografía
+
+**Demografía**: 
+
+Prieto, V., y Robello, M. (2023). Manual de Demografía. Montevideo (Prieto and Robello): Programa de Población, Facultad de Ciencias Sociales, Universidad de la República. Cap 13, 14 y Glosario [https://manualdemografia.cienciassociales.edu.uy/](https://manualdemografia.cienciassociales.edu.uy/) 	
+
+**Segmentación Temporal:**
+
+Lains, Pedro. Why growth rates differ in the long run: capital deepening, productivity growth and structural change in Portugal, 1910-1990. Instituto de Ciências Sociais, Universidade de Lisboa. 2011\. Página 5\. 
+
+[https://www.bportugal.pt/sites/default/files/anexos/paper\_1.pdf](https://www.bportugal.pt/sites/default/files/anexos/paper_1.pdf)
+
+Para hitos económicos de la segunda mitad del siglo XX y siguientes, a partir de sección:  Un pequeño milagro económico (1961-1974)
+
+[https://en.wikipedia.org/wiki/Economic\_history\_of\_Portugal](https://en.wikipedia.org/wiki/Economic_history_of_Portugal) 
+
+**Segmentación por Etapas de la vida:**
+
+Adaptado de: Scripta Nova. REVISTA ELECTRÓNICA DE GEOGRAFÍA Y CIENCIAS SOCIALES. Universidad de Barcelona. ISSN: 1138-9788. Depósito Legal: B. 21.741-98. Vol. IX, núm. 190, 1 de junio de 2005\. Segmento: Consideraciones finales. 
+
+[https://www.ub.edu/geocrit/sn/sn-190.htm](https://www.ub.edu/geocrit/sn/sn-190.htm)
