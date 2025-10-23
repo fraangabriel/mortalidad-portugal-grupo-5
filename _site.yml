@@ -1,0 +1,10 @@
+name: "mortalidad-portugal"
+output_dir: "docs" # Directorio de publicación para Render.
+navbar:
+  title: "Análisis Demográfico Portugal"
+  left:
+    - text: "Informe"
+      href: index.html
+output:
+  html_document:
+    theme: cosmo # Usando el tema que especificaste

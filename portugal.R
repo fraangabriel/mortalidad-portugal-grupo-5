@@ -268,7 +268,7 @@ df_mx_E4_Year_ordenado <- df0 %>%
 print("Combinación de mₓ promedio por Año (Year) y Etapas de la Vida (E4):")
 print(head(df_mx_E4_Year_ordenado, 10))
 
-View(df_mx_E4_Year_ordenado)
+# View(df_mx_E4_Year_ordenado)
 
 # -------------------------------------------------
 # df15: T3 (década) por E4 (etapas de la vida), promedio de mx
@@ -308,7 +308,7 @@ df_ex_E4_Year_ordenado <- df0 %>%
 print("Combinación de eₓ promedio por Año (Year) y Etapas de la Vida (E4):")
 print(head(df_ex_E4_Year_ordenado, 10))
 
-View(df_mx_E3_Year_ordenado)
+# View(df_mx_E3_Year_ordenado)
 
 
 # --------
@@ -414,7 +414,7 @@ dispersion5 <- df_ex_E4_Year_ordenado %>%
   )
 
 dispersion5
-View(df_mortalidad_nacer)
+# View(df_mortalidad_nacer)
 # ---------------------------------------------------------------------------
 mortalidad_nacer_linea <- df_mortalidad_nacer %>%
   plotly::plot_ly(
@@ -534,7 +534,7 @@ cv_ex <- ggplot(
 
 cv_ex
 
-View(df_mx_E3_Year_ordenado)
+# View(df_mx_E3_Year_ordenado)
 # ---------------------------------------------------------------------------
 
 df_vih <- df_mx_E4_Year_ordenado %>% 
