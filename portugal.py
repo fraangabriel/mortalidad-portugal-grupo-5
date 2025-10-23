@@ -258,3 +258,138 @@ df_ex_E4_Year_ordenado = df_ex_E4_Year.sort_values(by=['Year', 'E4'])
 # ver si da (se verifico contra filtros de excel para probar la estructura)
 print("Combinación de mx promedio por Año (Year) y Etapas de la Vida (E4):")
 print(df_ex_E4_Year_ordenado.head(10))
+
+# inicio de los gráficos
+# -------------------------------------------------
+# Gráficos de Dispersión
+
+dispersion1 = px.scatter(
+  df_mx_E3_Year_ordenado,
+    x='Year',
+    y='E3',
+    color='mx',
+    size='mx',
+    size_max=30,
+    title='Tasa de Mortalidad por Año según Grandes Grupos Censales',
+    labels={'mx': 'Tasa de Mortalidad ($m_x$)', 'Year': 'Año', 'E3': 'Grupo Censal'},
+    template='plotly_white'
+)
+#dispersion1.show()
+
+dispersion2 = px.scatter(
+  df_mx_E4_Year_ordenado,
+    x='Year',
+    y='E4',
+    color='mx',
+    size='mx',
+    size_max=30,
+    title='Tasa de Mortalidad por Año según las Etapas de la Vida',
+    labels={'mx': 'Tasa de Mortalidad ($m_x$)', 'Year': 'Año', 'E4': 'Etapa de Vida'},
+    template='plotly_white'
+)
+#dispersion2.show()
+
+# Aburrido, NO USAR
+dispersion3 = px.scatter(
+    df_mx_E3_T3_ordenado, 
+    x='T3',
+    y='E3',
+    color='mx',
+    size='mx',
+    size_max=30,
+    title='Tasa de Mortalidad Promedio por Década y Grupo Censal',
+    labels={'mx': 'Tasa de Mortalidad Promedio ($m_x$)', 'T3': 'Década', 'E3': 'Grupo Censal'},
+    template='plotly_white'
+)
+dispersion3.update_xaxes(tickangle=45) 
+#dispersion3.show()
+
+dispersion4 = px.scatter(
+    df_mx_E4_T3_ordenado, 
+    x='T3',
+    y='E4',
+    color='mx',
+    size='mx',
+    size_max=30,
+    title='Tasa de Mortalidad promedio por Década y Etapa de Vida',
+    labels={'mx': 'Tasa de Mortalidad Promedio ($m_x$)', 'T3': 'Década', 'E4': 'Etapa de Vida'},
+    template='plotly_white'
+)
+dispersion4.update_xaxes(tickangle=45) # Mejorar la legibilidad
+#dispersion4.show()
+
+dispersion5 = px.scatter(
+  df_ex_E4_Year_ordenado,
+    x='Year',
+    y='E4',
+    color='ex',
+    size='ex',
+    size_max=30,
+    title='Esperanza por Año según las Etapas de la Vida',
+    labels={'ex': 'Esperanza de vida ($e_x$)', 'Year': 'Año', 'E4': 'Etapa de Vida'},
+    template='plotly_white'
+)
+#dispersion5.show()
+
+mortalidad_nacer_linea = px.line(
+    df_mortalidad_nacer,
+    x='Year',
+    y='mx',
+    color='T4', 
+    title='Mortalidad al Nacer por Año, según Época Económica',
+    labels={
+        'mx': 'Tasa de Mortalidad ($m_x$)', 
+        'Year': 'Año', 
+        'T4': 'Época Económica'
+    },
+    log_y=True, 
+    template='plotly_white'
+)
+# mejora en visualización de puntos
+mortalidad_nacer_linea.update_traces(mode='lines+markers')
+#mortalidad_nacer_linea.show()
+
+cajas1 = px.box(
+    df0,  
+    x='T4',
+    y='ex',
+    color='T4', 
+    title='Esperanza de Vida por Época Económica',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'T4': 'Época Económica'
+    },
+    template='plotly_white',
+    # Ordenar las categorías del eje X
+    category_orders={"T4": [
+        '1940–1946: reconstrucción posguerra',
+        '1947–1972: expansión económica y transición demográfica',
+        '1973–1990: crisis del petróleo y ajuste estructural',
+        '1991–1998: apertura europea y modernización',
+        '1999–2007: integración al euro y estabilidad',
+        '2008–2014: crisis financiera global',
+        '2015–2019: recuperación económica',
+        '2020–2023: pandemia y reconfiguración demográfica'
+    ]}
+)
+
+# legibilidad de eje X 
+cajas1.update_xaxes(tickangle=45)
+#cajas1.show()
+
+cajas2 = px.box(
+    df0,  
+    x='E4',
+    y='ex',
+    color='E4', 
+    title='Esperanza de Vida por Etapa de la Vida, Todos los Años',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'E4': 'Etapa de Vida'
+    },
+    template='plotly_white',
+    # Usamos category_orders para asegurar que las etapas estén en orden lógico
+    category_orders={"E4": orden_etapas} 
+)
+cajas2.update_xaxes(tickangle=45)
+#cajas2.show()
