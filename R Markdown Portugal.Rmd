@@ -271,6 +271,10 @@ print(ex_E4)
 ```
 El gráfico muestra una excelente noticia para Portugal: durante los últimos 80 años, la esperanza de vida ha aumentado de manera continua para todas las cohortes de edad. Esto significa que un porcentaje mucho mayor de la población ahora sobrevive a la infancia (es aquí donde la esperanza de vida ha aumentado más, pasando de 56 a 80 años), así que las personas que viven hasta la madurez e incluso aquellas que sobrepasan la edad de 65 años también viven más. En definitiva, las condiciones de salud pública, la medicina, y los avances en las condiciones sociales de la década, en portugués, les han permitido a los ciudadanos de todas las edades sumar más y mejores años a la vida.
 
+# 🚀 App de Streamlit
+Visitanos aquí!
+https://mortalidad-portugal-1940-2023.streamlit.app/
+
 # 📚 Bibliografía
 
 **Demografía**: 
