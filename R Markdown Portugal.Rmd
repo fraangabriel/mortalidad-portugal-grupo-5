@@ -173,35 +173,36 @@ Cada cruce entre un enfoque de edad y un enfoque temporal genera un **data frame
 
 # 📊 Análisis de resultados
 
-```{r echo = FALSE}
-print(dispersion1)
+```{r echo = FALSE, warning = FALSE}
+library(plotly)
+dispersion1
 ```
 
-```{r echo = FALSE}
-print(dispersion2)
+```{r echo = FALSE, warning = FALSE}
+dispersion2
 ```
-```{r echo = FALSE}
-print(dispersion3)
-```
-
-```{r echo = FALSE}
-print(dispersion4)
+```{r echo = FALSE, warning = FALSE}
+dispersion3
 ```
 
-```{r echo = FALSE}
-print(dispersion5)
+```{r echo = FALSE, warning = FALSE}
+dispersion4
 ```
 
-```{r echo = FALSE}
-print(mortalidad_nacer_linea)
+```{r echo = FALSE, warning = FALSE}
+dispersion5
 ```
 
-```{r echo = FALSE}
-print(cajas3)
+```{r echo = FALSE, warning = FALSE}
+mortalidad_nacer_linea
 ```
 
-```{r echo = FALSE}
-print(cajas5)
+```{r echo = FALSE, warning = FALSE}
+cajas3
+```
+
+```{r echo = FALSE, warning = FALSE}
+cajas5
 ```
 
 ```{r echo = FALSE}
