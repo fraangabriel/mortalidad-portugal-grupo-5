@@ -414,21 +414,26 @@ dispersion5 <- df_ex_E4_Year_ordenado %>%
   )
 
 dispersion5
-
+View(df_mortalidad_nacer)
 # ---------------------------------------------------------------------------
 mortalidad_nacer_linea <- df_mortalidad_nacer %>%
   plotly::plot_ly(
-    x = ~Year, 
-    y = ~mx, 
+    x = ~Year,
+    y = ~mx,
     color = ~T4,
-    type = 'scatter', 
+    type = 'scatter',
     mode = 'lines+markers'
   ) %>%
   plotly::layout(
     title = 'Mortalidad al Nacer por Año, según Época Económica',
     xaxis = list(title = 'Año'),
-    yaxis = list(title = 'Tasa de Mortalidad (mₓ)', 
-                 type = 'log')
+    yaxis = list(title = 'Tasa de Mortalidad (mₓ)',
+                 type = 'log'),
+    legend = list(
+      x = 0,
+      y = -0.2,
+      orientation = 'h'
+    )
   )
 
 mortalidad_nacer_linea

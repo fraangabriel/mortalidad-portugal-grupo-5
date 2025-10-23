@@ -17,7 +17,7 @@ output:
     background-color: "#F5F8FF"
 ---
 
-```{r setup, include=FALSE}
+```{r include = FALSE}
 source("portugal.R")
 ```
 
@@ -138,12 +138,12 @@ Basados en las dos dimensiones de segmentación:
 
 Cada cruce entre un enfoque de edad y un enfoque temporal genera un **data frame derivado** del data frame original (df).
 
-| Edad / Tiempo | T₁ Año a año (83 categorías) | T₂ Años decenales (9 categorías) | T₃ Por décadas (9 categorías) | T₄ Periodos económicos (8 categorías) |
+| Edad / Tiempo | T₁ Año a año <br> (83 categorías) | T₂ Años decenales <br> (9 categorías) | T₃ Por décadas <br> (9 categorías) | T₄ Periodos económicos <br> (8 categorías) |
 | ----- | :---: | :---: | :---: | :---: |
-| **E₁ Bruto (111 categorías)** | df1 | df2 | df3 | df4 |
-| **E₂ Censal (23 categorías)** | df5 | df6 | df7 | df8 |
-| **E₃ Principales (3 categorías)** | df9 | df10 | df11 | df12 |
-| **E₄ Etapas de vida (9 categorías)** | df13 | df14 | df15 | df16 |
+| **E₁ Bruto <br> (111 categorías)** | df1 | df2 | df3 | df4 |
+| **E₂ Censal <br> (23 categorías)** | df5 | df6 | df7 | df8 |
+| **E₃ Principales <br> (3 categorías)** | df9 | df10 | df11 | df12 |
+| **E₄ Etapas de vida <br> (9 categorías)** | df13 | df14 | df15 | df16 |
 
 * **Total de data frames teóricos derivados:** 4 (enfoques de edad) × 4 (enfoques temporales) \= **16 data frames**  
 * **Los datos T₁, T₂, E₁, se utilizarán directamente** el valor que corresponda   
@@ -172,58 +172,104 @@ Cada cruce entre un enfoque de edad y un enfoque temporal genera un **data frame
 **ex**: Esperanza de Vida al Nacimiento, es el principal indicador de desarrollo y salud pública.
 
 # 📊 Análisis de resultados
+<br/>
 
+<br/>
 ```{r echo = FALSE, warning = FALSE}
 library(plotly)
 dispersion1
 ```
 
+Este gráfico muestra la Tasa de Mortalidad (mx) por Año según Grandes Grupos Censales, resume de forma categórica el patrón de Portugal. Las tasas de muerte para los grupos de 0-14 y 15-64 años son cercanas a cero (puntos diminutos y morados) en todo el período. Toda la mortalidad se concentra en el grupo de 65 años y más, cuyos círculos son grandes y de colores cálidos (amarillo/verde). Se observa una clara tendencia a la baja incluso en la vejez (el color se vuelve más verde con el tiempo), confirmando un éxito rotundo: la muerte es, hoy, casi exclusivamente un fenómeno de la edad avanzada en Portugal.
+
+<br/>
+
 ```{r echo = FALSE, warning = FALSE}
 dispersion2
 ```
+El gráfico que ilustra la Tasa de Mortalidad (mx) por Año y Etapa de Vida en Portugal para los años 1940 a 2023 proporciona una imagen clara del riesgo de muerte a lo largo del tiempo. Todas las líneas excepto la del grupo de Ancianos Avanzados contienen puntos pequeños, morados y en su mayoría cero (mx cerca de cero). Esto confirma la presencia de casi ningún riesgo de mortalidad para adultos jóvenes y de mediana edad durante la mayor parte de los 80 años. El grupo de Ancianos Avanzados se destaca porque tienen puntos grandes de colores cálidos (amarillo/verde, mx entre 0.1 y 0.3). Esto señala que, aunque la mortalidad se ha concentrado y siempre se ha concentrado en edades muy avanzadas, el nivel ha disminuido a lo largo de los años, incluso si ligeramente y hasta el grado de ‘verde’ que indica una mejora en la longevidad extrema.
+
+<br/>
+
+
 ```{r echo = FALSE, warning = FALSE}
 dispersion3
 ```
+El gráfico que muestra la Tasa de Mortalidad (mx) por Décadas y Grupos Censales demuestra una visión clara: los grupos de edad de 0-14 y 15-64 años se han mantenido cerca de cero (como lo evidencian los puntos pequeños y morados) durante un periodo de 80 años. Solo el riesgo de muerte se desplaza prácticamente por completo a las categorías de edad de 65 años y más, cuyos círculos son grandes y de colores cálidos. Sin embargo, dentro de las categorías de ancianos, las tasas de mortalidad han disminuido de manera consistente y considerable (el cambio de color hacia el verde), lo que prueba que la disminución de la mortalidad en Portugal ha sido exitosa, sin precedentes y un fenómeno universal.
+
+<br/>
 
 ```{r echo = FALSE, warning = FALSE}
 dispersion4
 ```
+Este gráfico sobre la Tasa de Mortalidad (mx) por Década muestra dónde se concentra el riesgo de muerte en Portugal. Las tasas de mortalidad infantil, infantil y de adultos están cerca de cero (pequeño punto morado), lo que demuestra el éxito contra la mortalidad en estos grupos de edad. El riesgo de muerte se concentra abrumadoramente en la Tercera Edad, particularmente en los más ancianos, de los cuales los puntos son los más grandes y amarillos (tasas más altas). Esto ilustra que la mortalidad en Portugal es ahora predominantemente un problema de edad avanzada.
+
+<br/>
 
 ```{r echo = FALSE, warning = FALSE}
 dispersion5
 ```
+Este gráfico de puntos utiliza colores asociados al valor de la esperanza de vida (ex) y muestra las ganancias de longevidad en Portugal. Las líneas de Infancia, Niñez y Adolescencia son las que más dramáticamente cambian de color (de verde a amarillo brillante, ganando la mayor cantidad de años). Las líneas de Adultos y Viejos muestran un cambio de color más sutil. Esto indica que la gran mejora en la longevidad de Portugal se debe, en gran parte, a que los jóvenes hoy en día tienen una supervivencia mucho mayor.
+
+<br/>
 
 ```{r echo = FALSE, warning = FALSE}
 mortalidad_nacer_linea
 ```
 
+Es impresionante la forma en la que se ha registrado la caída de la tasa de mortalidad al nacer en Portugal de forma continua en el período de 83 años (1940-2023). A pesar de haber atravesado crisis muy difíciles en la atención de la salud como la posguerra, la crisis del petróleo de los 70 y la crisis financiera de 2008, el sistema de salud del país dejó de bajar en la atención y la salud se cuidó tanto que la mortalidad al nacer en el país dejó de estar muy arriba como en 1940 hasta el récord de hoy en día, que es de 0.002. A pesar de los retos económicos y sociales que el país sí tuvo que afrontar, el sistema de salud mostró la capacidad por sí mismo de resolver los problemas que planteó la pandemia, atrapando al país en el estancamiento de la tasa.
+
+<br/>
+
+
 ```{r echo = FALSE, warning = FALSE}
 cajas3
 ```
+Comparando la longevidad esperada a lo largo de los años, el gráfico de esperanza de vida a 1940 refleja una esperanza de vida mucho más baja, y esto a todas las edades. A la infancia y las primeras etapas de la vida, se les vinculaba una alta mortalidad infantil, lo que hacía más errática la esperanza de vida. Las discordancias y la mayor incertidumbre respecto a cuántos años iba a vivir un individuo, se centraban en la edad adulta (productiva). En 1940, la esperanza de vida era incierta para los adultos, no para los ancianos como ocurre hoy.
+
+<br/>
 
 ```{r echo = FALSE, warning = FALSE}
 cajas5
 ```
+Este gráfico de caja de 2020 sobre la esperanza de vida en Portugal enfatiza dos observaciones clave: la longevidad esperada disminuye a medida que aumenta la edad (un niño espera vivir aproximadamente 80 años más, una persona "vieja" espera aproximadamente 4 años más). Sin embargo, en la vejez, el rango de años esperados de vida se vuelve grande, desigual y muy incierto. Para la primera infancia, las cajas son pequeñas, significando la previsibilidad de los años por vivir. Para los grupos de edad más avanzada en los últimos años, las cajas se estiran y se vuelven grandes, confirmando así la paradoja de la vejez. Una vez que un individuo cruza el umbral de la vejez, se vuelve muy incierto cuántos años más de vida quedan, lo que significa una gran disparidad en la vida esperada de este grupo de edad.
+
+<br/>
 
 ```{r echo = FALSE}
 print(cv_ex)
 ```
+Este gráfico sobre el Coeficiente de Variación de la Esperanza de Vida, un indicador de desigualdad, señala los lugares sobre los que se concentra la diferencia en la longevidad en el caso de Portugal. Se puede deducir que la desigualdad más notable se da entre los Viejos (65 años y más), donde la línea amarilla persiste en un valor altísimo, cercano a 80, lo que indica una gran diferencia en cuántos años más viven estas personas. En cambio, la longevidad en la Infancia/Juventud es muy uniforme (línea morada), y la edad productiva se ha vuelto más igualitaria con el tiempo (línea celeste en descenso).
+
+<br/>
 
 ```{r echo = FALSE}
 print(VIH)
 ```
 
+El gráfico de la Tasa de Muerte en Portugal durante la epidemia de VIH (1984-2005) ilustra dos fenómenos. Primero, la mortalidad seguía cayendo en todos los grupos de edad (un éxito general en salud). Segundo, y más relevante, los grupos adultos en especial los Adultos Jóvenes y Maduros, a partir de mediados de los 90, sufren una fuerte caída en sus tasas de muerte. Esta caída abrupta es un claro indicador del impacto positivo y la efectividad del tratamiento antirretroviral implementado en esos años para reducir las muertes por SIDA.
+
+<br/>
+
+
 ```{r echo = FALSE}
 print(nacer_continuo)
 ```
+<br/>
 
+<br/> 
 ```{r echo = FALSE}
 print(nacer)
 ```
 
+La gráfica mundial es evidencia contundente del éxito de Portugal: la esperanza de vida al nacer en el país ha aumentado cada año desde 1940. El incremento ha sido radical, al pasar de 52.8 años en 1940 a 81.1 años en la actualidad ganando 28 años de vida en 80, la sobrevida en 1940 estimada en 52.8 años, sin embargo, al 1940 la estimación de sobrevida en 81.1 años. Las grandes diferencias en el incremento de la esperanza de vida en relación a la mortalidad infantil, aunque siga habiendo un incremento, es constante y moderado, reafirmando a Portugal con una esperanza de vida mucho más alta y estable. El gráfico continuo nos muestra que este avance fue una marcha ascendente ininterrumpida, resistiendo crisis económicas y fluctuaciones.
+
+<br/>
+
 ```{r echo = FALSE}
 print(ex_E4)
 ```
+El gráfico muestra una excelente noticia para Portugal: durante los últimos 80 años, la esperanza de vida ha aumentado de manera continua para todas las cohortes de edad. Esto significa que un porcentaje mucho mayor de la población ahora sobrevive a la infancia (es aquí donde la esperanza de vida ha aumentado más, pasando de 56 a 80 años), así que las personas que viven hasta la madurez e incluso aquellas que sobrepasan la edad de 65 años también viven más. En definitiva, las condiciones de salud pública, la medicina, y los avances en las condiciones sociales de la década, en portugués, les han permitido a los ciudadanos de todas las edades sumar más y mejores años a la vida.
 
 # 📚 Bibliografía
 
