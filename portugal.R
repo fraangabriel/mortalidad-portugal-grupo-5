@@ -464,3 +464,146 @@ cajas2 <- df0 %>%
   )
 
 cajas2
+
+# ---------------------------------------------------------------------------
+cajas3 <- df_1940 %>%
+  plotly::plot_ly(
+    x = ~E4, 
+    y = ~ex,
+    color = ~E4,
+    type = 'box'
+  ) %>%
+  plotly::layout(
+    title = 'Esperanza de Vida por Etapa de la Vida, Año 1940',
+    xaxis = list(title = 'Etapa de Vida', tickangle = 45),
+    yaxis = list(title = 'Esperanza de Vida (eₓ)')
+  )
+
+cajas3
+
+# ---------------------------------------------------------------------------
+cajas4 <- df_1980 %>%
+  plotly::plot_ly(
+    x = ~E4, 
+    y = ~ex,
+    color = ~E4,
+    type = 'box'
+  ) %>%
+  plotly::layout(
+    title = 'Esperanza de Vida por Etapa de la Vida, Año 1980',
+    xaxis = list(title = 'Etapa de Vida', tickangle = 45),
+    yaxis = list(title = 'Esperanza de Vida (eₓ)')
+  )
+
+cajas4
+
+# ---------------------------------------------------------------------------
+cajas5 <- df_2020 %>%
+  plotly::plot_ly(
+    x = ~E4, 
+    y = ~ex,
+    color = ~E4,
+    type = 'box'
+  ) %>%
+  plotly::layout(
+    title = 'Esperanza de Vida por Etapa de la Vida, Año 2020',
+    xaxis = list(title = 'Etapa de Vida', tickangle = 45),
+    yaxis = list(title = 'Esperanza de Vida (eₓ)')
+  )
+
+cajas5
+
+# ---------------------------------------------------------------------------
+cv_ex <- ggplot(
+  data = df_mx_E3_Year_ordenado,
+  mapping = aes(x = Year, y = cv_ex, color = E3)
+) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Coeficiente de variación de la Esperanza de Vida por grupo",
+    x = "Año",
+    y = "Coeficiente de variación (eₓ)",
+    caption = "Fuente: Tabla de mortalidad de Portugal"
+  ) +
+  theme_minimal()
+
+cv_ex
+
+View(df_mx_E3_Year_ordenado)
+# ---------------------------------------------------------------------------
+
+df_vih <- df_mx_E4_Year_ordenado %>% 
+  filter(E4 %in% c(
+    'Infancia',
+    'Niñez',
+    'Pubertad y Adolescencia',
+    'Adultos jóvenes',
+    'Adultos intermedios',
+    'Adultos maduros'
+  ) & Year >= 1984 & Year <= 2005)
+
+# ---------------------------------------------------------------------------
+VIH <- ggplot(df_vih, aes(x = Year, y = mean_mx, color = E4)) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Tasa de muerte durante la epidemia de VIH",
+    x = "Año",
+    y = "Tasa de muerte (mₓ)",
+    color = "Grupos de edades",
+    caption = "Fuente: Tabla de mortalidad de Portugal"
+  ) +
+  theme_minimal()
+
+VIH
+
+# ---------------------------------------------------------------------------
+
+nacer_continuo <- ggplot(df_mortalidad_nacer, aes(x = Year, y = ex)) +
+  geom_line(color = "#134686", size = 1) +
+  labs(
+    title = "Esperanza de vida al nacer (edad 0) en Portugal: 1940-2023",
+    x = "Año",
+    y = "Esperanza de vida (eₓ)"
+  ) +
+  theme_minimal() +
+  labs(caption = "Fuente: Tabla de mortalidad de Portugal") +
+  expand_limits(y = c(min(df_mortalidad_nacer$ex) - 5, max(df_mortalidad_nacer$ex) + 5)) +
+  scale_x_continuous(breaks = seq(min(df_mortalidad_nacer$Year), max(df_mortalidad_nacer$Year), by = 10)) +
+  geom_text(
+    data = df_mortalidad_nacer %>% filter(Year == max(Year)),
+    aes(label = round(ex, 2)),
+    vjust = -1,
+    size = 3.5,
+    color = "#ED3F27"
+  )
+
+nacer_continuo
+
+# ---------------------------------------------------------------------------
+
+df_mortalidad_nacer <- df0 %>%
+  group_by(T3) %>% 
+  filter(Age == 0) %>%
+  summarise(ex = mean(ex))
+
+# ---------------------------------------------------------------------------
+
+nacer <- ggplot(df_mortalidad_nacer, aes(x = T3, y = ex)) +
+  geom_col(fill = "steelblue", color = "black") +
+  geom_text(aes(label = ex), 
+            vjust = -0.5,
+            size = 3.5) +
+  labs(
+    title = "Expectativa de vida al nacer por período",
+    x = "Periodo (T3)",
+    y = "Expectativa de Vida (eₓ)",
+    caption = "Fuente: Tabla de mortalidad de Portugal"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  ) +
+  expand_limits(y = min(df_mortalidad_nacer$ex) - 5)
+
+nacer
