@@ -618,9 +618,9 @@ ex_E4 <- ggplot(
 ) +
   geom_line(linewidth = 1) +
   labs(
-    title = "Coeficiente de variación de la Esperanza de Vida por grupo",
+    title = "Promedio de la esperanza de vida por grupo",
     x = "Año",
-    y = "Coeficiente de variación (eₓ)",
+    y = "Esperanza de vida (eₓ)",
     color = "Etapas de la vida",
     caption = "Fuente: Tabla de mortalidad de Portugal"
   ) +

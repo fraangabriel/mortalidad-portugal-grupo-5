@@ -174,9 +174,55 @@ Cada cruce entre un enfoque de edad y un enfoque temporal genera un **data frame
 # 📊 Análisis de resultados
 
 ```{r echo = FALSE}
-mortalidad_nacer_linea
+print(dispersion1)
 ```
 
+```{r echo = FALSE}
+print(dispersion2)
+```
+```{r echo = FALSE}
+print(dispersion3)
+```
+
+```{r echo = FALSE}
+print(dispersion4)
+```
+
+```{r echo = FALSE}
+print(dispersion5)
+```
+
+```{r echo = FALSE}
+print(mortalidad_nacer_linea)
+```
+
+```{r echo = FALSE}
+print(cajas3)
+```
+
+```{r echo = FALSE}
+print(cajas5)
+```
+
+```{r echo = FALSE}
+print(cv_ex)
+```
+
+```{r echo = FALSE}
+print(VIH)
+```
+
+```{r echo = FALSE}
+print(nacer_continuo)
+```
+
+```{r echo = FALSE}
+print(nacer)
+```
+
+```{r echo = FALSE}
+print(ex_E4)
+```
 
 # 📚 Bibliografía
 
