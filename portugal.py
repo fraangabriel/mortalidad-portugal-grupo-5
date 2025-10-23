@@ -133,3 +133,128 @@ orden_etapas = [
     'Viejos intermedios',
     'Viejos avanzados'
 ]
+# establece el tipo de dato a categórico ordenado
+e4_type_ordenado = pd.CategoricalDtype(categories=orden_etapas, ordered=True)
+print(orden_grupos_censales)
+print(orden_etapas)
+
+# inicio de los filtros y agrupaciones
+# -------------------------------------------------
+# filtros para mostrar promedios mx tasa de mortalidad
+mx_promedio_year = df0.groupby('Year')['mx'].mean()
+mx_promedio_E3 = df0.groupby('E3')['mx'].mean()
+mx_promedio_E4 = df0.groupby('E4')['mx'].mean()
+mx_promedio_T3 = df0.groupby('T3')['mx'].mean()
+mx_promedio_T4 = df0.groupby('T4')['mx'].mean()
+
+# filtros para mostrar promedios ex esperanza de vida
+ex_promedio_E3 = df0.groupby('E3')['ex'].mean()
+ex_promedio_E4 = df0.groupby('E4')['ex'].mean()
+ex_promedio_T3 = df0.groupby('T3')['ex'].mean()
+ex_promedio_T4 = df0.groupby('T4')['ex'].mean()
+
+# filtro para mortalidad al nacer
+df_mortalidad_nacer = df0[df0['Age'] == 0].copy()
+
+# filtro para años específicos
+df_1940 = df0[df0['Year'] == 1940].copy()
+df_1960 = df0[df0['Year'] == 1960].copy()
+df_1980 = df0[df0['Year'] == 1980].copy()
+df_2000 = df0[df0['Year'] == 2000].copy()
+df_2020 = df0[df0['Year'] == 2020].copy()
+
+# cruces para variables
+
+#crea df9
+# Year (año) por E3 (grandes grupos censales),
+# calcula promedio de mx en cada subgrupo
+mx_promedio_E3_por_Year = df0.groupby(['Year', 'E3'])['mx'].mean()
+# guarda resultado dataframe previo
+df_mx_E3_Year = mx_promedio_E3_por_Year.reset_index()
+# se aplica el tipo categórico ordenado a la columna 'E3'
+df_mx_E3_Year['E3'] = df_mx_E3_Year['E3'].astype(e3_type_ordenado)
+df_mx_E3_Year_ordenado = df_mx_E3_Year.sort_values(by=['Year', 'E3'])
+# ver si da (se verifico contra filtros de excel para probar la estructura)
+print("Combinación de mx promedio por Año (Year) y Grandes grupos censales (E3):")
+print(df_mx_E3_Year_ordenado.head(10))
+
+#crea df11
+#T3 (década) por E3 (grandes grupos censales),
+# calcula promedio de mx en cada subgrupo
+mx_promedio_E3_por_T3 = df0.groupby(['T3', 'E3'])['mx'].mean()
+# guarda resultado dataframe previo
+df_mx_E3_T3 = mx_promedio_E3_por_T3.reset_index()
+# se aplica el tipo categórico ordenado a la columna 'E3'
+df_mx_E3_T3['E3'] = df_mx_E3_T3['E3'].astype(e3_type_ordenado)
+df_mx_E3_T3_ordenado = df_mx_E3_T3.sort_values(by=['T3', 'E3'])
+# ver si da 
+print("Combinación de mx promedio por Década (T3) y Grupo Censal (E3):")
+print(df_mx_E3_T3_ordenado.head(10))
+
+
+# crea df12
+# T4 (etapas economicas) por E3 (grandes grupos censales),
+# calcula promedio de mx en cada subgrupo
+mx_promedio_E3_por_T4 = df0.groupby(['T4', 'E3'])['mx'].mean()
+# guarda resultado dataframe previo
+df_mx_E3_T4 = mx_promedio_E3_por_T4.reset_index()
+# se aplica el tipo categórico ordenado a la columna 'E4'
+df_mx_E3_T4['E3'] = df_mx_E3_T4['E3'].astype(e3_type_ordenado)
+df_mx_E3_T4_ordenado = df_mx_E3_T4.sort_values(by=['T4', 'E3'])
+# ver si da 
+print("Combinación de mx promedio por Etapas Económicas (T4) y Grupo Censal (E3):")
+print(df_mx_E3_T4_ordenado.head(10))
+
+
+#crea df13
+# Year (año) por E4 (etapas de la vida),
+# calcula promedio de mx en cada subgrupo
+mx_promedio_E4_por_Year = df0.groupby(['Year', 'E4'])['mx'].mean()
+# guarda resultado dataframe previo
+df_mx_E4_Year = mx_promedio_E4_por_Year.reset_index()
+# se aplica el tipo categórico ordenado a la columna 'E4'
+df_mx_E4_Year['E4'] = df_mx_E4_Year['E4'].astype(e4_type_ordenado)
+df_mx_E4_Year_ordenado = df_mx_E4_Year.sort_values(by=['Year', 'E4'])
+# ver si da (se verifico contra filtros de excel para probar la estructura)
+print("Combinación de mx promedio por Año (Year) y Etapas de la Vida (E4):")
+print(df_mx_E4_Year_ordenado.head(10))
+
+# crea df15
+# T3 (década) por E4 (etapas de la vida),
+# calcula promedio de mx en cada subgrupo
+mx_promedio_E4_por_T3 = df0.groupby(['T3', 'E4'])['mx'].mean()
+# guarda resultado dataframe previo
+df_mx_E4_T3 = mx_promedio_E4_por_T3.reset_index()
+# se aplica el tipo categórico ordenado a la columna 'E4'
+df_mx_E4_T3['E4'] = df_mx_E4_T3['E4'].astype(e4_type_ordenado)
+df_mx_E4_T3_ordenado = df_mx_E4_T3.sort_values(by=['T3', 'E4'])
+# ver si da (se verifico contra filtros de excel para probar la estructura)
+print("Combinación de mx promedio por Década (T3) y Etapas de la Vida (E4):")
+print(df_mx_E4_T3_ordenado.head(10))
+
+
+# crea df16
+# T4 (etapas economicas) por E4 (etapas de la vida),
+# calcula promedio de mx en cada subgrupo
+mx_promedio_E4_por_T4 = df0.groupby(['T4', 'E4'])['mx'].mean()
+# guarda resultado dataframe previo
+df_mx_E4_T4 = mx_promedio_E4_por_T4.reset_index()
+# se aplica el tipo categórico ordenado a la columna 'E4'
+df_mx_E4_T4['E4'] = df_mx_E4_T4['E4'].astype(e4_type_ordenado)
+df_mx_E4_T4_ordenado = df_mx_E4_T4.sort_values(by=['T4', 'E4'])
+# ver si da (se verifico contra filtros de excel para probar la estructura)
+print("Combinación de mx promedio por Etapas Económicas (T4) y Etapas de la Vida (E4):")
+print(df_mx_E4_T4_ordenado.head(10))
+
+#crea df13_ex
+# Year (año) por E4 (etapas de la vida),
+# calcula promedio de ex en cada subgrupo
+ex_promedio_E4_por_Year = df0.groupby(['Year', 'E4'])['ex'].mean()
+# guarda resultado dataframe previo
+df_ex_E4_Year = ex_promedio_E4_por_Year.reset_index()
+# se aplica el tipo categórico ordenado a la columna 'E4'
+df_ex_E4_Year['E4'] = df_ex_E4_Year['E4'].astype(e4_type_ordenado)
+df_ex_E4_Year_ordenado = df_ex_E4_Year.sort_values(by=['Year', 'E4'])
+# ver si da (se verifico contra filtros de excel para probar la estructura)
+print("Combinación de mx promedio por Año (Year) y Etapas de la Vida (E4):")
+print(df_ex_E4_Year_ordenado.head(10))
