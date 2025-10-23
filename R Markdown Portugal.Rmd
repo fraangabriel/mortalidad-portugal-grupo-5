@@ -18,7 +18,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-source("pruebas.R")
+source("portugal.R")
 ```
 
 # 💡 Planteamiento del problema
@@ -172,6 +172,11 @@ Cada cruce entre un enfoque de edad y un enfoque temporal genera un **data frame
 **ex**: Esperanza de Vida al Nacimiento, es el principal indicador de desarrollo y salud pública.
 
 # 📊 Análisis de resultados
+
+```{r echo = FALSE}
+mortalidad_nacer_linea
+```
+
 
 # 📚 Bibliografía
 

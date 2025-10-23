@@ -542,6 +542,8 @@ df_vih <- df_mx_E4_Year_ordenado %>%
     'Adultos maduros'
   ) & Year >= 1984 & Year <= 2005)
 
+df_vih
+
 # ---------------------------------------------------------------------------
 VIH <- ggplot(df_vih, aes(x = Year, y = mean_mx, color = E4)) +
   geom_line(linewidth = 1) +
@@ -594,9 +596,9 @@ nacer <- ggplot(df_mortalidad_nacer, aes(x = T3, y = ex)) +
             vjust = -0.5,
             size = 3.5) +
   labs(
-    title = "Expectativa de vida al nacer por período",
+    title = "Esperanza de vida al nacer por década",
     x = "Periodo (T3)",
-    y = "Expectativa de Vida (eₓ)",
+    y = "Esperanza de Vida (eₓ)",
     caption = "Fuente: Tabla de mortalidad de Portugal"
   ) +
   theme_minimal() +
