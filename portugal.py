@@ -393,3 +393,140 @@ cajas2 = px.box(
 )
 cajas2.update_xaxes(tickangle=45)
 #cajas2.show()
+
+cajas3 = px.box(
+    df_1940,  
+    x='E4',
+    y='ex',
+    color='E4', 
+    title='Esperanza de Vida por Etapa de la Vida, Año 1940',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'E4': 'Etapa de Vida'
+    },
+    template='plotly_white',
+    # Usamos category_orders para asegurar que las etapas estén en orden lógico
+    category_orders={"E4": orden_etapas} 
+)
+cajas3.update_xaxes(tickangle=45)
+#cajas3.show()
+
+cajas4 = px.box(
+    df_1980,  
+    x='E4',
+    y='ex',
+    color='E4', 
+    title='Esperanza de Vida por Etapa de la Vida, Año 1980',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'E4': 'Etapa de Vida'
+    },
+    template='plotly_white',
+    # Usamos category_orders para asegurar que las etapas estén en orden lógico
+    category_orders={"E4": orden_etapas} 
+)
+cajas4.update_xaxes(tickangle=45)
+#cajas4.show()
+
+cajas5 = px.box(
+    df_2020,  
+    x='E4',
+    y='ex',
+    color='E4', 
+    title='Esperanza de Vida por Etapa de la Vida, Año 2020',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'E4': 'Etapa de Vida'
+    },
+    template='plotly_white',
+    # Usamos category_orders para asegurar que las etapas estén en orden lógico
+    category_orders={"E4": orden_etapas} 
+)
+cajas5.update_xaxes(tickangle=45)
+#cajas5.show()
+
+# MOSTRAR EN STREAMLIT: Usa st.plotly_chart en lugar de dispersion2.show()
+st.title("Análisis de Mortalidad en Portugal")
+st.header("1. Tasa de Mortalidad por Año y Etapa de Vida")
+st.plotly_chart(dispersion2, use_container_width=True) 
+# use_container_width=True asegura que el gráfico ocupe todo el ancho disponible.
+
+# ... (Código de cálculo de df_ex_stats, ex_mean, ex_std, ex_upper, ex_lower aquí) ...
+
+import plotly.graph_objects as go
+
+# Calcula la media (mean) y la desviación estándar (std) de 'ex' por Año
+df_ex_stats = df0.groupby('Year')['ex'].agg(['mean', 'std']).reset_index()
+df_ex_stats.columns = ['Year', 'ex_mean', 'ex_std']
+
+# Calcula los límites del intervalo: Media ± Desviación Estándar
+df_ex_stats['ex_upper'] = df_ex_stats['ex_mean'] + df_ex_stats['ex_std']
+df_ex_stats['ex_lower'] = df_ex_stats['ex_mean'] - df_ex_stats['ex_std']
+
+# Crea la figura
+fig_std = go.Figure() # Renombramos la variable para evitar conflictos
+
+# 1. Agrega el Sombreado (Intervalo de Desviación Estándar)
+fig_std.add_trace(go.Scatter(
+    x=df_ex_stats['Year'],
+    y=df_ex_stats['ex_upper'],
+    mode='lines',
+    line=dict(width=0), 
+    showlegend=False
+))
+
+fig_std.add_trace(go.Scatter(
+    x=df_ex_stats['Year'],
+    y=df_ex_stats['ex_lower'],
+    mode='lines',
+    line=dict(width=0), 
+    fill='tonexty', 
+    fillcolor='rgba(150, 200, 250, 0.4)', 
+    name='Intervalo ($\pm 1\sigma$)'
+))
+
+# 2. Agrega la Línea de la Media
+fig_std.add_trace(go.Scatter(
+    x=df_ex_stats['Year'],
+    y=df_ex_stats['ex_mean'],
+    mode='lines+markers',
+    line=dict(color='darkblue', width=2),
+    name='Esperanza de Vida Media ($\mu$)'
+))
+
+# 3. Ajustar el diseño del gráfico
+fig_std.update_layout(
+    title='Esperanza de Vida PROMEDIO ($\mu$) con Intervalo de $\pm 1$ Desviación Estándar ($\sigma$)',
+    xaxis_title='Año',
+    yaxis_title='Esperanza de Vida ($e_x$)',
+    template='plotly_white'
+)
+
+# MOSTRAR EN STREAMLIT
+st.header("2. Esperanza de Vida Media con Desviación Estándar")
+st.plotly_chart(fig_std, use_container_width=True)
+
+# ... (código de importaciones y cálculo de df0) ...
+
+# Crear un selector en la barra lateral
+st.sidebar.header("Opciones de Filtrado")
+filtro_eje_x = st.sidebar.selectbox(
+    "Selecciona la variable para el eje X del Box Plot:",
+    ('E4', 'T4') 
+)
+
+# Generar el Box Plot basado en la selección
+cajas_dinamicas = px.box(
+    df0,
+    x=filtro_eje_x, # El eje X cambia según la selección del usuario
+    y='ex',
+    color=filtro_eje_x, 
+    title=f'Distribución de la Esperanza de Vida ($e_x$) por {filtro_eje_x}',
+    labels={'ex': 'Esperanza de Vida ($e_x$)'},
+    template='plotly_white'
+)
+cajas_dinamicas.update_xaxes(tickangle=45)
+
+st.header("3. Box Plot Dinámico")
+st.plotly_chart(cajas_dinamicas, use_container_width=True)
+print(df.head())
