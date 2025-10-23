@@ -1,22 +1,24 @@
 # llamamos las librerias (el programa no porque ya trabajamos sobre el)
+import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-
 # llamamos a los datos
 df = pd.read_csv('portugal_tabla_de_mortalidad.csv' , sep = ';')
 
 # el df original no debe tocarse, usamos df= para los ajustes
-df0 = df
+df0 = df.copy()
 
 # se revisa que esté la data correctamente, dentro de py debe poner print siempre
 print(df0.head())
 print(df0.tail())
+print(df.head())
+print(df.tail())
 
 # pido el resumen tecnico
 print(df0.info())
 
-# la columna de edad no es numérica, debemos hacer el cambio en 3 etapas
+# la columna de edad no es numérica, debemos hacer el cambio 
 df0['Age'] = pd.to_numeric(df0['Age'].str.replace('+', ''))
 
 # pido el resumen tecnico para verificar el cambio en Age
@@ -110,22 +112,24 @@ df0['T4'] = df0['Year'].apply(epoca_economica)
 df0['E3'] = df0['Age'].apply(gCenso)
 df0['E4'] = df0['Age'].apply(etapa)
 
-# ver si muestra nuevas columnas
-print(df0.head())
-print(df0.tail())
+#lista con el orden exacto E3
+orden_grupos_censales = [
+    '0-14 años',
+    '15-64 años',
+    '65 años y más'
+]
+# establece el tipo de dato a categórico ordenado
+e3_type_ordenado = pd.CategoricalDtype(categories=orden_grupos_censales, ordered=True)
 
-# filtro según E3 para mostrar el promedio mx
-# -------------------------------------------------
-mx_grouped_by_E3 = df0.groupby('E3')['mx'].mean()
-mx_grouped_by_T4 = df0.groupby('T4')['mx'].mean()
-
-# ver el resultado
-print("")
-print("Valor de 'mx' según 'E3':")
-print(mx_grouped_by_E3)
-
-print("")
-print("Valor de 'mx' según 'T4':")
-print(mx_grouped_by_T4)
-
-print(mx_grouped_by_T4.info())
+# lista con el orden exacto E4
+orden_etapas = [
+    'Infancia',
+    'Ninez',
+    'Pubertad y Adolescencia',
+    'Adultos jóvenes',
+    'Adultos intermedios',
+    'Adultos maduros',
+    'Viejos incipientes',
+    'Viejos intermedios',
+    'Viejos avanzados'
+]
