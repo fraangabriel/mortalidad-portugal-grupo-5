@@ -326,3 +326,334 @@ dispersion4 = px.scatter(
 )
 dispersion4.update_xaxes(tickangle=45) 
 #dispersion4.show()
+
+dispersion5 = px.scatter(
+  df_ex_E4_Year_ordenado,
+    x='Year',
+    y='E4',
+    color='ex',
+    size='ex',
+    size_max=30,
+    title='Esperanza por Año según las Etapas de la Vida',
+    labels={'ex': 'Esperanza de vida ($e_x$)', 'Year': 'Año', 'E4': 'Etapa de Vida'},
+    template='plotly_white'
+)
+#dispersion5.show()
+
+mortalidad_nacer_linea = px.line(
+    df_nacer,
+    x='Year',
+    y='mx',
+    color='T4', 
+    title='Mortalidad al Nacer por Año, según Época Económica',
+    labels={
+        'mx': 'Tasa de Mortalidad ($m_x$)', 
+        'Year': 'Año', 
+        'T4': 'Época Económica'
+    },
+    log_y=True, 
+    template='plotly_white'
+)
+# mejora en visualización de puntos
+mortalidad_nacer_linea.update_traces(mode='lines+markers')
+#mortalidad_nacer_linea.show()
+
+esperanza_nacer_linea = px.line(
+    df_nacer,
+    x='Year',
+    y='ex',
+    color='T4', 
+    title='Esperanza de Vida al Nacer por Año, según Época Económica',
+    labels={
+        'ex': 'Esperanza de Vida al Nacer ($e_x$)', 
+        'Year': 'Año', 
+        'T4': 'Época Económica'
+    },
+    log_y=True, 
+    template='plotly_white'
+)
+# mejora en visualización de puntos
+mortalidad_nacer_linea.update_traces(mode='lines+markers')
+#esperanza_nacer_linea.show()
+
+cajas1 = px.box(
+    df0,  
+    x='T4',
+    y='ex',
+    color='T4', 
+    title='Esperanza de Vida por Época Económica',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'T4': 'Época Económica'
+    },
+    template='plotly_white',
+    # Ordenar las categorías del eje X
+    category_orders={"T4": [
+        '1940–1946: reconstrucción posguerra',
+        '1947–1972: expansión económica y transición demográfica',
+        '1973–1990: crisis del petróleo y ajuste estructural',
+        '1991–1998: apertura europea y modernización',
+        '1999–2007: integración al euro y estabilidad',
+        '2008–2014: crisis financiera global',
+        '2015–2019: recuperación económica',
+        '2020–2023: pandemia y reconfiguración demográfica'
+    ]}
+)
+
+# legibilidad de eje X 
+cajas1.update_xaxes(tickangle=45)
+#cajas1.show()
+
+cajas2 = px.box(
+    df0,  
+    x='E4',
+    y='ex',
+    color='E4', 
+    title='Esperanza de Vida por Etapa de la Vida, Todos los Años',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'E4': 'Etapa de Vida'
+    },
+    template='plotly_white',
+    # Usamos category_orders para asegurar que las etapas estén en orden lógico
+    category_orders={"E4": orden_etapas} 
+)
+cajas2.update_xaxes(tickangle=45)
+#cajas2.show()
+
+cajas3 = px.box(
+    df_1940,  
+    x='E4',
+    y='ex',
+    color='E4', 
+    title='Esperanza de Vida por Etapa de la Vida, Año 1940',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'E4': 'Etapa de Vida'
+    },
+    template='plotly_white',
+    # Usamos category_orders para asegurar que las etapas estén en orden lógico
+    category_orders={"E4": orden_etapas} 
+)
+cajas3.update_xaxes(tickangle=45)
+#cajas3.show()
+
+cajas4 = px.box(
+    df_1980,  
+    x='E4',
+    y='ex',
+    color='E4', 
+    title='Esperanza de Vida por Etapa de la Vida, Año 1980',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'E4': 'Etapa de Vida'
+    },
+    template='plotly_white',
+    # Usamos category_orders para asegurar que las etapas estén en orden lógico
+    category_orders={"E4": orden_etapas} 
+)
+cajas4.update_xaxes(tickangle=45)
+#cajas4.show()
+
+cajas5 = px.box(
+    df_2020,  
+    x='E4',
+    y='ex',
+    color='E4', 
+    title='Esperanza de Vida por Etapa de la Vida, Año 2020',
+    labels={
+        'ex': 'Esperanza de Vida ($e_x$)', 
+        'E4': 'Etapa de Vida'
+    },
+    template='plotly_white',
+    # Usamos category_orders para asegurar que las etapas estén en orden lógico
+    category_orders={"E4": orden_etapas} 
+)
+cajas5.update_xaxes(tickangle=45)
+#cajas5.show()
+
+# --- Títulos del Dashboard ---
+st.markdown('<h2>📊 Mortalidad en Portugal (1940 - 2023)</h2>', unsafe_allow_html=True)
+st.markdown('<h5>UCV EECA EQUIPO #5; 23-OCT-2025</h5>', unsafe_allow_html=True)
+st.markdown('<h5>Francisco Pérez y Jackeline Perilla</h5>', unsafe_allow_html=True)
+st.markdown("---")
+
+# --- Interfaz de Filtros Dinámicos ---
+st.markdown("### Seleccione sus Opciones de Análisis")
+col1, col2, col3  = st.columns(3)
+with col1:
+    social_selection_str = st.selectbox(
+        "Segmentación por Edad", 
+        ["E3 - Grupo Censal", "E4 - Etapas de la Vida"],
+        key="social"
+    )
+
+with col2:
+    temporal_selection_str = st.selectbox(
+        "Segmentación Temporal",
+        ["T3 - Décadas", "T4 - Períodos Económicos"], # Ajusté el nombre para que coincida con T4
+        key="temporal"
+    )
+
+with col3:
+    analisis_selection_str = st.selectbox(
+        "3. Variable de Análisis",
+        ["mx - Mortalidad", "ex - Esperanza de Vida"],
+        key="analisis"
+    )
+st.markdown("---")
+
+# --- Lógica Dinámica del Dashboard ---
+
+# 1. Mapear selecciones a nombres de columnas reales
+map_social = {
+    "E3 - Grupo Censal": "E3",
+    "E4 - Etapas de la Vida": "E4"
+}
+map_temporal = {
+    "T3 - Décadas": "T3",
+    "T4 - Períodos Económicos": "T4"
+}
+map_analisis = {
+    "mx - Mortalidad": "mx",
+    "ex - Esperanza de Vida": "ex"
+}
+
+col_social = map_social[social_selection_str]
+col_temporal = map_temporal[temporal_selection_str]
+col_analisis = map_analisis[analisis_selection_str]
+
+# 2. Definir etiquetas claras para los gráficos
+label_analisis = "Tasa de Mortalidad Promedio ($m_x$)" if col_analisis == 'mx' else "Esperanza de Vida Promedio ($e_x$)"
+label_social = "Grupo Censal" if col_social == 'E3' else "Etapa de Vida"
+label_temporal = "Década" if col_temporal == 'T3' else "Época Económica"
+
+# 3. Preparar los datos
+# Esta función cacheará (guardará en memoria) los cálculos para 'ex' 
+# que no se hicieron en el script original.
+@st.cache_data
+def get_ex_data(temporal_col, social_col):
+    # Usamos df0, que está disponible globalmente
+    df_agrupado = df0.groupby([temporal_col, social_col])['ex'].mean().reset_index()
+    
+    # Aplicar el orden categórico que ya definiste
+    if social_col == 'E3':
+        df_agrupado[social_col] = df_agrupado[social_col].astype(e3_type_ordenado)
+    elif social_col == 'E4':
+        df_agrupado[social_col] = df_agrupado[social_col].astype(e4_type_ordenado)
+        
+    return df_agrupado.sort_values(by=[temporal_col, social_col])
+
+# Decidir qué DataFrame usar según los filtros
+if col_analisis == 'mx':
+    # Usamos los DataFrames PRE-CALCULADOS para 'mx'
+    if col_social == 'E3' and col_temporal == 'T3':
+        df_plot = df_mx_E3_T3_ordenado
+    elif col_social == 'E3' and col_temporal == 'T4':
+        df_plot = df_mx_E3_T4_ordenado
+    elif col_social == 'E4' and col_temporal == 'T3':
+        df_plot = df_mx_E4_T3_ordenado
+    elif col_social == 'E4' and col_temporal == 'T4':
+        df_plot = df_mx_E4_T4_ordenado
+else:
+    # Calculamos DINÁMICAMENTE los datos para 'ex' usando la función cacheada
+    df_plot = get_ex_data(col_temporal, col_social)
+
+
+# --- 4. Crear el Gráfico Principal Dinámico ---
+st.markdown(f"### {label_analisis} por {label_temporal} y {label_social}")
+st.write(f"Análisis cruzado de **{analisis_selection_str}** por **{temporal_selection_str}** y **{social_selection_str}**.")
+
+# Usamos un gráfico de dispersión (burbujas) similar a los que ya definiste
+fig_main = px.scatter(
+    df_plot,
+    x=col_temporal,
+    y=col_social,
+    color=col_analisis,
+    size=col_analisis,
+    size_max=40,
+    template='plotly_white',
+    title=f"{label_analisis} por {label_temporal} y {label_social}",
+    labels={
+        col_analisis: label_analisis,
+        col_temporal: label_temporal,
+        col_social: label_social
+    },
+    # Paleta de color según la variable
+    color_continuous_scale=px.colors.sequential.Viridis_r if col_analisis == 'ex' else px.colors.sequential.Reds
+)
+
+fig_main.update_layout(
+    xaxis_title=label_temporal,
+    yaxis_title=label_social,
+    xaxis_tickangle=45,
+    coloraxis_colorbar_title=label_analisis.split(" (")[0] # Título corto para la barra de color
+)
+
+# --- 5. Mostrar el gráfico y los datos en columnas ---
+col_graf, col_data = st.columns([2, 1]) # El gráfico ocupa 2/3, la tabla 1/3
+
+with col_graf:
+    st.plotly_chart(fig_main, use_container_width=True)
+    
+    # Ofrecer un gráfico de barras como alternativa
+    with st.expander("Ver como gráfico de barras agrupadas"):
+        fig_bar = px.bar(
+            df_plot,
+            x=col_temporal,
+            y=col_analisis,
+            color=col_social,
+            barmode='group',
+            title=f"{label_analisis} por {label_temporal} y {label_social}",
+            labels={
+                col_analisis: label_analisis,
+                col_temporal: label_temporal,
+                col_social: label_social
+            },
+            template='plotly_white'
+        )
+        fig_bar.update_xaxes(tickangle=45)
+        st.plotly_chart(fig_bar, use_container_width=True)
+
+with col_data:
+    st.markdown("#### Datos de la Visualización")
+    # Mostramos el dataframe (sin gradiente para evitar error de matplotlib)
+    st.dataframe(
+        df_plot.style.format({col_analisis: "{:.4f}"}), 
+        use_container_width=True
+    )
+
+# --- 6. Mostrar gráficos adicionales en pestañas ---
+# Estos son los gráficos que ya creaste y que son interesantes por sí solos
+st.markdown("---")
+st.header("Análisis Adicionales y Vistas Históricas")
+
+tab1, tab2, tab3 = st.tabs([
+    "📈 Mortalidad al Nacer", 
+    "📊 Evolución por Año", 
+    "⏳ Comparativa Histórica (e_x)"
+])
+
+with tab1:
+    st.subheader("Evolución de la Mortalidad al Nacer (Edad 0)")
+    st.plotly_chart(mortalidad_nacer_linea, use_container_width=True)
+
+with tab2:
+    st.subheader("Evolución Anual de la Mortalidad ($m_x$)")
+    st.write("Estos gráficos muestran la tasa de mortalidad año por año, desglosada por las dos estructuras sociales.")
+    st.plotly_chart(dispersion1, use_container_width=True) # mx vs Year vs E3
+    st.plotly_chart(dispersion2, use_container_width=True) # mx vs Year vs E4
+    
+    st.subheader("Evolución Anual de la Esperanza de Vida ($e_x$)")
+    st.plotly_chart(dispersion5, use_container_width=True) # ex vs Year vs E4
+
+with tab3:
+    st.subheader("Comparativa de Esperanza de Vida por Etapa de Vida en Años Clave")
+    st.write("Observa cómo ha cambiado la distribución de la esperanza de vida en tres momentos históricos.")
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.plotly_chart(cajas3, use_container_width=True) # 1940
+    with c2:
+        st.plotly_chart(cajas4, use_container_width=True) # 1980
+    with c3:
+        st.plotly_chart(cajas5, use_container_width=True) # 2020
