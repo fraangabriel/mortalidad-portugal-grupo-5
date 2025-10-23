@@ -226,11 +226,13 @@ print(head(df_1940))
 # --------------------------------------
 # Cruces para la tasa de mortalidad (mₓ)
 # --------------------------------------
-# df4: Age (edad) por T4 (períodos económicos)
-df_mx_Age_T4_ordenado <- df0 %>%
-  group_by(T4, Age) %>%
-  summarise(mean_ex = mean(ex), sd_ex = sd(ex), cv_ex = sd_ex/mean_ex*100, .groups = 'drop') %>% 
-  arrange(T4, Age)
+df_mx_E3_Year_ordenado <- df0 %>% #✅
+  group_by(Year, E3) %>%
+  summarise(mean_mx = mean(mx), sd_mx = sd(mx), cv = sd_mx/mean_mx*100, mean_ex = mean(ex), sd_ex = sd(ex), cv_ex = sd_ex/mean_ex*100, .groups = 'drop') %>%
+  arrange(Year, E3)
+
+print("Combinación de mₓ promedio por Año (Year) y Grandes grupos censales (E3):")
+print(head(df_mx_E3_Year_ordenado, 10))
 
 
 
