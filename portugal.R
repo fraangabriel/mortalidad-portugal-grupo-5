@@ -226,14 +226,12 @@ print(head(df_1940))
 # --------------------------------------
 # Cruces para la tasa de mortalidad (mₓ)
 # --------------------------------------
+# df4: Age (edad) por T4 (períodos económicos)
+df_mx_Age_T4_ordenado <- df0 %>%
+  group_by(T4, Age) %>%
+  summarise(mean_ex = mean(ex), sd_ex = sd(ex), cv_ex = sd_ex/mean_ex*100, .groups = 'drop') %>% 
+  arrange(T4, Age)
 
-df_mx_E3_Year_ordenado <- df0 %>% #✅
-  group_by(Year, E3) %>%
-  summarise(mean_mx = mean(mx), sd_mx = sd(mx), cv = sd_mx/mean_mx*100, mean_ex = mean(ex), sd_ex = sd(ex), cv_ex = sd_ex/mean_ex*100, .groups = 'drop') %>%
-  arrange(Year, E3)
-
-print("Combinación de mₓ promedio por Año (Year) y Grandes grupos censales (E3):")
-print(head(df_mx_E3_Year_ordenado, 10))
 
 
 # -------------------------------------------------
@@ -259,10 +257,10 @@ print(head(df_mx_E3_T4_ordenado, 10))
 
 
 # -------------------------------------------------
-# df13: Year (año) por E4 (etapas de la vida), promedio de mx
+# df13: Year (año) por E4 (etapas de la vida)
 df_mx_E4_Year_ordenado <- df0 %>%
   group_by(Year, E4) %>%
-  summarise(mean_mx = mean(mx), sd_mx = sd(mx), cv = sd_mx/mean_mx*100, .groups = 'drop') %>%
+  summarise(mean_mx = mean(mx), sd_mx = sd(mx), cv = sd_mx/mean_mx*100, mean_ex = mean(ex), .groups = 'drop') %>%
   arrange(Year, E4)
 
 print("Combinación de mₓ promedio por Año (Year) y Etapas de la Vida (E4):")
@@ -607,3 +605,21 @@ nacer <- ggplot(df_mortalidad_nacer, aes(x = T3, y = ex)) +
   expand_limits(y = min(df_mortalidad_nacer$ex) - 5)
 
 nacer
+
+# ---------------------------------------------------------------------------
+
+ex_E4 <- ggplot(
+  data = df_mx_E4_Year_ordenado,
+  mapping = aes(x = Year, y = mean_ex, color = E4)
+) +
+  geom_line(linewidth = 1) +
+  labs(
+    title = "Coeficiente de variación de la Esperanza de Vida por grupo",
+    x = "Año",
+    y = "Coeficiente de variación (eₓ)",
+    color = "Etapas de la vida",
+    caption = "Fuente: Tabla de mortalidad de Portugal"
+  ) +
+  theme_minimal()
+
+ex_E4
