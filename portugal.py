@@ -3,6 +3,15 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import plotly.graph_objects as go
+
+st.set_page_config(
+    page_title="Mortalidad Portugal",
+    page_icon="🇵🇹",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 # llamamos a los datos
 df = pd.read_csv('portugal_tabla_de_mortalidad.csv' , sep = ';')
 
@@ -86,7 +95,7 @@ def etapa(edad):
     if 0 <= edad <= 5:
         return 'Infancia'
     elif  6 <= edad <= 11:
-        return 'Ninez'
+        return 'Niñez'
     elif 12 <= edad <= 19:
         return 'Pubertad y Adolescencia'
     elif 20 <= edad <= 39:
@@ -124,7 +133,7 @@ e3_type_ordenado = pd.CategoricalDtype(categories=orden_grupos_censales, ordered
 # lista con el orden exacto E4
 orden_etapas = [
     'Infancia',
-    'Ninez',
+    'Niñez',
     'Pubertad y Adolescencia',
     'Adultos jóvenes',
     'Adultos intermedios',
@@ -154,7 +163,7 @@ ex_promedio_T3 = df0.groupby('T3')['ex'].mean()
 ex_promedio_T4 = df0.groupby('T4')['ex'].mean()
 
 # filtro para mortalidad al nacer
-df_mortalidad_nacer = df0[df0['Age'] == 0].copy()
+df_nacer = df0[df0['Age'] == 0].copy()
 
 # filtro para años específicos
 df_1940 = df0[df0['Year'] == 1940].copy()
@@ -315,218 +324,5 @@ dispersion4 = px.scatter(
     labels={'mx': 'Tasa de Mortalidad Promedio ($m_x$)', 'T3': 'Década', 'E4': 'Etapa de Vida'},
     template='plotly_white'
 )
-dispersion4.update_xaxes(tickangle=45) # Mejorar la legibilidad
+dispersion4.update_xaxes(tickangle=45) 
 #dispersion4.show()
-
-dispersion5 = px.scatter(
-  df_ex_E4_Year_ordenado,
-    x='Year',
-    y='E4',
-    color='ex',
-    size='ex',
-    size_max=30,
-    title='Esperanza por Año según las Etapas de la Vida',
-    labels={'ex': 'Esperanza de vida ($e_x$)', 'Year': 'Año', 'E4': 'Etapa de Vida'},
-    template='plotly_white'
-)
-#dispersion5.show()
-
-mortalidad_nacer_linea = px.line(
-    df_mortalidad_nacer,
-    x='Year',
-    y='mx',
-    color='T4', 
-    title='Mortalidad al Nacer por Año, según Época Económica',
-    labels={
-        'mx': 'Tasa de Mortalidad ($m_x$)', 
-        'Year': 'Año', 
-        'T4': 'Época Económica'
-    },
-    log_y=True, 
-    template='plotly_white'
-)
-# mejora en visualización de puntos
-mortalidad_nacer_linea.update_traces(mode='lines+markers')
-#mortalidad_nacer_linea.show()
-
-cajas1 = px.box(
-    df0,  
-    x='T4',
-    y='ex',
-    color='T4', 
-    title='Esperanza de Vida por Época Económica',
-    labels={
-        'ex': 'Esperanza de Vida ($e_x$)', 
-        'T4': 'Época Económica'
-    },
-    template='plotly_white',
-    # Ordenar las categorías del eje X
-    category_orders={"T4": [
-        '1940–1946: reconstrucción posguerra',
-        '1947–1972: expansión económica y transición demográfica',
-        '1973–1990: crisis del petróleo y ajuste estructural',
-        '1991–1998: apertura europea y modernización',
-        '1999–2007: integración al euro y estabilidad',
-        '2008–2014: crisis financiera global',
-        '2015–2019: recuperación económica',
-        '2020–2023: pandemia y reconfiguración demográfica'
-    ]}
-)
-
-# legibilidad de eje X 
-cajas1.update_xaxes(tickangle=45)
-#cajas1.show()
-
-cajas2 = px.box(
-    df0,  
-    x='E4',
-    y='ex',
-    color='E4', 
-    title='Esperanza de Vida por Etapa de la Vida, Todos los Años',
-    labels={
-        'ex': 'Esperanza de Vida ($e_x$)', 
-        'E4': 'Etapa de Vida'
-    },
-    template='plotly_white',
-    # Usamos category_orders para asegurar que las etapas estén en orden lógico
-    category_orders={"E4": orden_etapas} 
-)
-cajas2.update_xaxes(tickangle=45)
-#cajas2.show()
-
-cajas3 = px.box(
-    df_1940,  
-    x='E4',
-    y='ex',
-    color='E4', 
-    title='Esperanza de Vida por Etapa de la Vida, Año 1940',
-    labels={
-        'ex': 'Esperanza de Vida ($e_x$)', 
-        'E4': 'Etapa de Vida'
-    },
-    template='plotly_white',
-    # Usamos category_orders para asegurar que las etapas estén en orden lógico
-    category_orders={"E4": orden_etapas} 
-)
-cajas3.update_xaxes(tickangle=45)
-#cajas3.show()
-
-cajas4 = px.box(
-    df_1980,  
-    x='E4',
-    y='ex',
-    color='E4', 
-    title='Esperanza de Vida por Etapa de la Vida, Año 1980',
-    labels={
-        'ex': 'Esperanza de Vida ($e_x$)', 
-        'E4': 'Etapa de Vida'
-    },
-    template='plotly_white',
-    # Usamos category_orders para asegurar que las etapas estén en orden lógico
-    category_orders={"E4": orden_etapas} 
-)
-cajas4.update_xaxes(tickangle=45)
-#cajas4.show()
-
-cajas5 = px.box(
-    df_2020,  
-    x='E4',
-    y='ex',
-    color='E4', 
-    title='Esperanza de Vida por Etapa de la Vida, Año 2020',
-    labels={
-        'ex': 'Esperanza de Vida ($e_x$)', 
-        'E4': 'Etapa de Vida'
-    },
-    template='plotly_white',
-    # Usamos category_orders para asegurar que las etapas estén en orden lógico
-    category_orders={"E4": orden_etapas} 
-)
-cajas5.update_xaxes(tickangle=45)
-#cajas5.show()
-
-# MOSTRAR EN STREAMLIT: Usa st.plotly_chart en lugar de dispersion2.show()
-st.title("Análisis de Mortalidad en Portugal")
-st.header("1. Tasa de Mortalidad por Año y Etapa de Vida")
-st.plotly_chart(dispersion2, use_container_width=True) 
-# use_container_width=True asegura que el gráfico ocupe todo el ancho disponible.
-
-# ... (Código de cálculo de df_ex_stats, ex_mean, ex_std, ex_upper, ex_lower aquí) ...
-
-import plotly.graph_objects as go
-
-# Calcula la media (mean) y la desviación estándar (std) de 'ex' por Año
-df_ex_stats = df0.groupby('Year')['ex'].agg(['mean', 'std']).reset_index()
-df_ex_stats.columns = ['Year', 'ex_mean', 'ex_std']
-
-# Calcula los límites del intervalo: Media ± Desviación Estándar
-df_ex_stats['ex_upper'] = df_ex_stats['ex_mean'] + df_ex_stats['ex_std']
-df_ex_stats['ex_lower'] = df_ex_stats['ex_mean'] - df_ex_stats['ex_std']
-
-# Crea la figura
-fig_std = go.Figure() # Renombramos la variable para evitar conflictos
-
-# 1. Agrega el Sombreado (Intervalo de Desviación Estándar)
-fig_std.add_trace(go.Scatter(
-    x=df_ex_stats['Year'],
-    y=df_ex_stats['ex_upper'],
-    mode='lines',
-    line=dict(width=0), 
-    showlegend=False
-))
-
-fig_std.add_trace(go.Scatter(
-    x=df_ex_stats['Year'],
-    y=df_ex_stats['ex_lower'],
-    mode='lines',
-    line=dict(width=0), 
-    fill='tonexty', 
-    fillcolor='rgba(150, 200, 250, 0.4)', 
-    name='Intervalo ($\pm 1\sigma$)'
-))
-
-# 2. Agrega la Línea de la Media
-fig_std.add_trace(go.Scatter(
-    x=df_ex_stats['Year'],
-    y=df_ex_stats['ex_mean'],
-    mode='lines+markers',
-    line=dict(color='darkblue', width=2),
-    name='Esperanza de Vida Media ($\mu$)'
-))
-
-# 3. Ajustar el diseño del gráfico
-fig_std.update_layout(
-    title='Esperanza de Vida PROMEDIO ($\mu$) con Intervalo de $\pm 1$ Desviación Estándar ($\sigma$)',
-    xaxis_title='Año',
-    yaxis_title='Esperanza de Vida ($e_x$)',
-    template='plotly_white'
-)
-
-# MOSTRAR EN STREAMLIT
-st.header("2. Esperanza de Vida Media con Desviación Estándar")
-st.plotly_chart(fig_std, use_container_width=True)
-
-# ... (código de importaciones y cálculo de df0) ...
-
-# Crear un selector en la barra lateral
-st.sidebar.header("Opciones de Filtrado")
-filtro_eje_x = st.sidebar.selectbox(
-    "Selecciona la variable para el eje X del Box Plot:",
-    ('E4', 'T4') 
-)
-
-# Generar el Box Plot basado en la selección
-cajas_dinamicas = px.box(
-    df0,
-    x=filtro_eje_x, # El eje X cambia según la selección del usuario
-    y='ex',
-    color=filtro_eje_x, 
-    title=f'Distribución de la Esperanza de Vida ($e_x$) por {filtro_eje_x}',
-    labels={'ex': 'Esperanza de Vida ($e_x$)'},
-    template='plotly_white'
-)
-cajas_dinamicas.update_xaxes(tickangle=45)
-
-st.header("3. Box Plot Dinámico")
-st.plotly_chart(cajas_dinamicas, use_container_width=True)
-print(df.head())
