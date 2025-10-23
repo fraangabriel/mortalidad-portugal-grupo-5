@@ -309,3 +309,158 @@ print("Combinación de eₓ promedio por Año (Year) y Etapas de la Vida (E4):")
 print(head(df_ex_E4_Year_ordenado, 10))
 
 View(df_mx_E3_Year_ordenado)
+
+
+# --------
+# Gráficos ✅
+# --------
+
+# ---------------------------------------------------------------------------
+dispersion1 <- df_mx_E3_Year_ordenado %>%
+  plotly::plot_ly(
+    x = ~Year,
+    y = ~as.character(E3), 
+    color = ~mean_mx,        
+    size = ~mean_mx,         
+    type = 'scatter', 
+    mode = 'markers',
+    marker = list(sizemode = 'diameter', 
+                  sizeref = max(df_mx_E3_Year_ordenado$mean_mx) / 0.2)
+  ) %>%
+  plotly::layout(
+    title = 'Tasa de Mortalidad por Año según Grandes Grupos Censales',
+    xaxis = list(title = 'Año'),
+    yaxis = list(title = 'Grupo Censal') 
+  )
+
+dispersion1
+
+# ---------------------------------------------------------------------------
+dispersion2 <- df_mx_E4_Year_ordenado %>%
+  plotly::plot_ly(
+    x = ~Year,
+    y = ~as.character(E4), 
+    color = ~mean_mx,
+    size = ~mean_mx,
+    type = 'scatter', 
+    mode = 'markers',
+    marker = list(sizemode = 'diameter', 
+                  sizeref = max(df_mx_E4_Year_ordenado$mean_mx) / 0.2)
+  ) %>%
+  plotly::layout(
+    title = 'Tasa de Mortalidad por Año según las Etapas de la Vida',
+    xaxis = list(title = 'Año'),
+    yaxis = list(title = 'Etapa de Vida') 
+  )
+
+dispersion2
+
+# ---------------------------------------------------------------------------
+dispersion3 <- df_mx_E3_T3_ordenado %>%
+  plotly::plot_ly(
+    x = ~T3,
+    y = ~as.character(E3),
+    color = ~mx,
+    size = ~mx,
+    type = 'scatter',
+    mode = 'markers',
+    marker = list(sizemode = 'diameter',
+                  sizeref = max(df_mx_E3_T3_ordenado$mx) / 0.2)
+  ) %>%
+  plotly::layout(
+    title = 'Tasa de Mortalidad Promedio por Década y Grupo Censal',
+    xaxis = list(title = 'Década', tickangle = 45),
+    yaxis = list(title = 'Grupo Censal')
+  )
+
+dispersion3
+
+# ---------------------------------------------------------------------------
+dispersion4 <- df_mx_E4_T3_ordenado %>%
+  plotly::plot_ly(
+    x = ~T3,
+    y = ~as.character(E4), 
+    color = ~mx,        
+    size = ~mx,         
+    type = 'scatter', 
+    mode = 'markers',
+    marker = list(sizemode = 'diameter', 
+                  sizeref = max(df_mx_E4_T3_ordenado$mx) / 0.2)
+  ) %>%
+  plotly::layout(
+    title = 'Tasa de Mortalidad promedio por Década y Etapa de Vida',
+    xaxis = list(title = 'Década', tickangle = 45),
+    yaxis = list(title = 'Etapa de Vida')
+  )
+
+dispersion4
+
+# ---------------------------------------------------------------------------
+dispersion5 <- df_ex_E4_Year_ordenado %>%
+  plotly::plot_ly(
+    x = ~Year,
+    y = ~as.character(E4), 
+    color = ~ex,
+    size = ~ex,
+    type = 'scatter', 
+    mode = 'markers',
+    marker = list(sizemode = 'diameter', 
+                  sizeref = max(df_ex_E4_Year_ordenado$ex) / 20)
+  ) %>%
+  plotly::layout(
+    title = 'Esperanza por Año según las Etapas de la Vida',
+    xaxis = list(title = 'Año'),
+    yaxis = list(title = 'Etapa de Vida')
+  )
+
+dispersion5
+
+# ---------------------------------------------------------------------------
+mortalidad_nacer_linea <- df_mortalidad_nacer %>%
+  plotly::plot_ly(
+    x = ~Year, 
+    y = ~mx, 
+    color = ~T4,
+    type = 'scatter', 
+    mode = 'lines+markers'
+  ) %>%
+  plotly::layout(
+    title = 'Mortalidad al Nacer por Año, según Época Económica',
+    xaxis = list(title = 'Año'),
+    yaxis = list(title = 'Tasa de Mortalidad (mₓ)', 
+                 type = 'log')
+  )
+
+mortalidad_nacer_linea
+
+# ---------------------------------------------------------------------------
+cajas1 <- df0 %>%
+  plotly::plot_ly(
+    x = ~T4, 
+    y = ~ex,
+    color = ~T4,
+    type = 'box'
+  ) %>%
+  plotly::layout(
+    title = 'Esperanza de Vida por Época Económica',
+    xaxis = list(title = 'Época Económica', tickangle = 45),
+    yaxis = list(title = 'Esperanza de Vida (eₓ)')
+  )
+
+cajas1
+
+# ---------------------------------------------------------------------------
+cajas2 <- df0 %>%
+  plotly::plot_ly(
+    x = ~E4, 
+    y = ~ex,
+    color = ~E4,
+    type = 'box'
+  ) %>%
+  plotly::layout(
+    title = 'Esperanza de Vida por Etapa de la Vida, Todos los Años',
+    xaxis = list(title = 'Etapa de Vida', tickangle = 45),
+    yaxis = list(title = 'Esperanza de Vida (eₓ)')
+  )
+
+cajas2
