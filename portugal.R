@@ -158,3 +158,154 @@ cat("\n--- Estructura de E3 y E4 (factores ordenados) ---\n")
 
 print(str(df0 %>%
             select(E3, E4)))
+
+# ----------------------
+# Filtros y agrupaciones
+# ----------------------
+
+# Filtros para mostrar promedios mx (tasa de mortalidad)
+mx_promedio_year <- df0 %>%
+  group_by(Year) %>%
+  summarise(mx = mean(mx))
+
+mx_promedio_E3 <- df0 %>%
+  group_by(E3) %>%
+  summarise(mx = mean(mx))
+
+mx_promedio_E4 <- df0 %>%
+  group_by(E4) %>%
+  summarise(mx = mean(mx))
+
+mx_promedio_T3 <- df0 %>% 
+  group_by(T3) %>% 
+  summarise(mx = mean(mx))
+
+mx_promedio_T4 <- df0 %>%
+  group_by(T4) %>%
+  summarise(mx = mean(mx))
+
+# Filtros para mostrar promedios ex (esperanza de vida)
+ex_promedio_E3 <- df0 %>% 
+  group_by(E3) %>% 
+  summarise(ex = mean(ex))
+
+ex_promedio_E4 <- df0 %>% 
+  group_by(E4) %>% 
+  summarise(ex = mean(ex))
+
+ex_promedio_T3 <- df0 %>% 
+  group_by(T3) %>% 
+  summarise(ex = mean(ex))
+
+ex_promedio_T4 <- df0 %>% 
+  group_by(T4) %>% 
+  summarise(ex = mean(ex))
+
+cat("\n--- Promedio de mₓ por Grupo Censal (E3) ---\n")
+print(mx_promedio_E3)
+
+
+# -------------------
+# Filtros específicos
+# -------------------
+
+# Filtro para mortalidad al nacer (Age == 0)
+df_mortalidad_nacer <- df0 %>% 
+  filter(Age == 0)
+
+# Filtros para años específicos
+df_1940 <- df0 %>% filter(Year == 1940)
+df_1960 <- df0 %>% filter(Year == 1960)
+df_1980 <- df0 %>% filter(Year == 1980)
+df_2000 <- df0 %>% filter(Year == 2000)
+df_2020 <- df0 %>% filter(Year == 2020)
+
+cat("\n--- Data Frame filtrado para el año 1940 ---\n")
+print(head(df_1940))
+
+# --------------------------------------
+# Cruces para la tasa de mortalidad (mₓ)
+# --------------------------------------
+
+df_mx_E3_Year_ordenado <- df0 %>% #✅
+  group_by(Year, E3) %>%
+  summarise(mean_mx = mean(mx), sd_mx = sd(mx), cv = sd_mx/mean_mx*100, mean_ex = mean(ex), sd_ex = sd(ex), cv_ex = sd_ex/mean_ex*100, .groups = 'drop') %>%
+  arrange(Year, E3)
+
+print("Combinación de mₓ promedio por Año (Year) y Grandes grupos censales (E3):")
+print(head(df_mx_E3_Year_ordenado, 10))
+
+
+# -------------------------------------------------
+# df11: T3 (década) por E3 (grandes grupos censales), promedio de mₓ
+df_mx_E3_T3_ordenado <- df0 %>%
+  group_by(T3, E3) %>%
+  summarise(mx = mean(mx), .groups = 'drop') %>%
+  arrange(T3, E3)
+
+print("Combinación de mₓ promedio por Década (T3) y Grupo Censal (E3):")
+print(head(df_mx_E3_T3_ordenado, 10))
+
+
+# -------------------------------------------------
+# df12: T4 (etapas económicas) por E3 (grandes grupos censales), promedio de mx
+df_mx_E3_T4_ordenado <- df0 %>%
+  group_by(T4, E3) %>%
+  summarise(mx = mean(mx), .groups = 'drop') %>%
+  arrange(T4, E3)
+
+print("Combinación de mₓ promedio por Etapas Económicas (T4) y Grupo Censal (E3):")
+print(head(df_mx_E3_T4_ordenado, 10))
+
+
+# -------------------------------------------------
+# df13: Year (año) por E4 (etapas de la vida), promedio de mx
+df_mx_E4_Year_ordenado <- df0 %>%
+  group_by(Year, E4) %>%
+  summarise(mean_mx = mean(mx), sd_mx = sd(mx), cv = sd_mx/mean_mx*100, .groups = 'drop') %>%
+  arrange(Year, E4)
+
+print("Combinación de mₓ promedio por Año (Year) y Etapas de la Vida (E4):")
+print(head(df_mx_E4_Year_ordenado, 10))
+
+View(df_mx_E4_Year_ordenado)
+
+# -------------------------------------------------
+# df15: T3 (década) por E4 (etapas de la vida), promedio de mx
+df_mx_E4_T3_ordenado <- df0 %>%
+  # Agrupar y resumir
+  group_by(T3, E4) %>%
+  summarise(mx = mean(mx), .groups = 'drop') %>%
+  # Ordenar.
+  arrange(T3, E4)
+
+print("Combinación de mₓ promedio por Década (T3) y Etapas de la Vida (E4):")
+print(head(df_mx_E4_T3_ordenado, 10))
+
+
+# -------------------------------------------------
+# df16: T4 (etapas economicas) por E4 (etapas de la vida), promedio de mx
+df_mx_E4_T4_ordenado <- df0 %>%
+  group_by(T4, E4) %>%
+  summarise(mx = mean(mx), .groups = 'drop') %>%
+  arrange(T4, E4)
+
+print("Combinación de mₓ promedio por Etapas Económicas (T4) y Etapas de la Vida (E4):")
+print(head(df_mx_E4_T4_ordenado, 10))
+
+
+# ------------------------------------
+# Cruce para la esperanza de vida (ex)
+# ------------------------------------
+
+# -------------------------------------------------
+# df13_ex: Year (año) por E4 (etapas de la vida), promedio de ex
+df_ex_E4_Year_ordenado <- df0 %>%
+  group_by(Year, E4) %>%
+  summarise(ex = mean(ex), .groups = 'drop') %>%
+  arrange(Year, E4)
+
+print("Combinación de eₓ promedio por Año (Year) y Etapas de la Vida (E4):")
+print(head(df_ex_E4_Year_ordenado, 10))
+
+View(df_mx_E3_Year_ordenado)
