@@ -19,6 +19,8 @@ output:
 
 ```{r include = FALSE}
 source("portugal.R")
+library(tidyverse)
+library(plotly)
 ```
 
 # 💡 Planteamiento del problema
@@ -181,15 +183,6 @@ dispersion1
 ```
 
 Este gráfico muestra la Tasa de Mortalidad (mx) por Año según Grandes Grupos Censales, resume de forma categórica el patrón de Portugal. Las tasas de muerte para los grupos de 0-14 y 15-64 años son cercanas a cero (puntos diminutos y morados) en todo el período. Toda la mortalidad se concentra en el grupo de 65 años y más, cuyos círculos son grandes y de colores cálidos (amarillo/verde). Se observa una clara tendencia a la baja incluso en la vejez (el color se vuelve más verde con el tiempo), confirmando un éxito rotundo: la muerte es, hoy, casi exclusivamente un fenómeno de la edad avanzada en Portugal.
-
-<br/>
-
-```{r echo = FALSE, warning = FALSE}
-dispersion2
-```
-El gráfico que ilustra la Tasa de Mortalidad (mx) por Año y Etapa de Vida en Portugal para los años 1940 a 2023 proporciona una imagen clara del riesgo de muerte a lo largo del tiempo. Todas las líneas excepto la del grupo de Ancianos Avanzados contienen puntos pequeños, morados y en su mayoría cero (mx cerca de cero). Esto confirma la presencia de casi ningún riesgo de mortalidad para adultos jóvenes y de mediana edad durante la mayor parte de los 80 años. El grupo de Ancianos Avanzados se destaca porque tienen puntos grandes de colores cálidos (amarillo/verde, mx entre 0.1 y 0.3). Esto señala que, aunque la mortalidad se ha concentrado y siempre se ha concentrado en edades muy avanzadas, el nivel ha disminuido a lo largo de los años, incluso si ligeramente y hasta el grado de ‘verde’ que indica una mejora en la longevidad extrema.
-
-<br/>
 
 
 ```{r echo = FALSE, warning = FALSE}
