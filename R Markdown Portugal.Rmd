@@ -2,7 +2,7 @@
 title: "Análisis de la Mortalidad y Esperanza de Vida en Portugal (1940-2023)"
 author: "Francisco Pérez y Jackeline Perilla"
 date: "23 de octubre de 2025"
-output:
+output: 
   html_document:
     toc: true
     toc_depth: 3
